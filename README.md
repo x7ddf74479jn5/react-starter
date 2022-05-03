@@ -4,4 +4,3 @@
 - TypeScript
 - Vite
 - Recoil
-- Firebase
