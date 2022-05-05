@@ -21,7 +21,11 @@ const storage = getStorage(app);
 const auth = getAuth(app);
 
 const getConverter = <T extends object>(assert: (data: unknown) => asserts data is T): FirestoreDataConverter<T> => ({
-  toFirestore: (data: WithFieldValue<T>) => data,
+  toFirestore: (data: WithFieldValue<T>) => {
+    assert(data);
+
+    return data;
+  },
   fromFirestore: (snapshot: QueryDocumentSnapshot) => {
     const data = snapshot.data({ serverTimestamps: "estimate" });
 
