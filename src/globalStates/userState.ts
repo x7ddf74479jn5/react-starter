@@ -12,7 +12,18 @@ import { atom, useRecoilValue, useSetRecoilState } from "recoil";
 
 import { auth } from "@/lib/firebase";
 
-type UserState = User | null;
+type AuthUser = Pick<
+  User,
+  "uid" | "displayName" | "email" | "photoURL" | "metadata"
+  // | "emailVerified"
+  // | "getIdToken"
+  // | "getIdTokenResult"
+  // | "isAnonymous"
+  // | "phoneNumber"
+  // | "refreshToken"
+>;
+
+type UserState = AuthUser | null;
 
 const userState = atom<UserState>({
   key: "userState",
@@ -20,21 +31,23 @@ const userState = atom<UserState>({
   dangerouslyAllowMutability: true,
 });
 
-export const loginWithGoogle = () => {
+export const loginWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
-  return signInWithRedirect(auth, provider);
+  await signInWithRedirect(auth, provider);
 };
 
-export const createUserWithEmailAndPassword = (email: string, password: string) => {
-  return _createUserWithEmailAndPassword(auth, email, password);
+export const createUserWithEmailAndPassword = async (email: string, password: string) => {
+  const userCredential = await _createUserWithEmailAndPassword(auth, email, password);
+  return userCredential;
 };
 
-export const loginWithEmailAndPassword = (email: string, password: string) => {
-  return signInWithEmailAndPassword(auth, email, password);
+export const loginWithEmailAndPassword = async (email: string, password: string) => {
+  const userCredential = await signInWithEmailAndPassword(auth, email, password);
+  return userCredential;
 };
 
-export const logout = () => {
-  return signOut(auth);
+export const logout = async () => {
+  await signOut(auth);
 };
 
 export const useAuthState = () => {
