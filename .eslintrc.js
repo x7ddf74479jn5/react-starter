@@ -73,7 +73,7 @@ module.exports = {
         format: ["PascalCase"],
       },
       {
-        selector: ["property", "method"],
+        selector: ["method"],
         format: ["camelCase"],
       },
       {
