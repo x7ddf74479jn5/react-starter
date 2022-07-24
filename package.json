@@ -15,12 +15,12 @@
     "deploy": "firebase deploy --only hosting"
   },
   "dependencies": {
-    "firebase": "9.9.0",
+    "firebase": "9.9.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router-dom": "6.3.0",
     "recoil": "0.7.4",
-    "zod": "3.17.3"
+    "zod": "3.17.10"
   },
   "devDependencies": {
     "@types/react": "18.0.15",
